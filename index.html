@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Pratiwi Komputer – Kursus Komputer dari Nol sampai Siap Kerja</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #eef3f1;
+        --panel: #fff;
+        --ink: #10222b;
+        --muted: #4c6169;
+        --line: #c9d6d2;
+        --brand: #0f766e;
+        --brand-ink: #fff;
+        --sun: #ffc93c;
+        --sun-ink: #10222b;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0d1a20;
+          --panel: #14262e;
+          --ink: #eaf3f1;
+          --muted: #9bb2b8;
+          --line: #28414a;
+          --brand: #2dd4bf;
+          --brand-ink: #0d1a20;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #0d1a20;
+        --panel: #14262e;
+        --ink: #eaf3f1;
+        --muted: #9bb2b8;
+        --line: #28414a;
+        --brand: #2dd4bf;
+        --brand-ink: #0d1a20;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+        scroll-behavior: smooth;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          400 1.05rem/1.6 "Source Sans 3",
+          system-ui,
+          sans-serif;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Bricolage Grotesque", Georgia, sans-serif;
+        line-height: 1.1;
+        margin: 0;
+      }
+      a {
+        color: inherit;
+      }
+      :focus-visible {
+        outline: 3px solid var(--sun);
+        outline-offset: 2px;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      header {
+        border-bottom: 1px solid var(--line);
+      }
+      header .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        flex-wrap: wrap;
+      }
+      .logo {
+        font:
+          800 1.3rem "Bricolage Grotesque",
+          sans-serif;
+        text-decoration: none;
+      }
+      .logo span {
+        color: var(--brand);
+      }
+      nav {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      nav a {
+        text-decoration: none;
+        font-weight: 600;
+      }
+      nav a:hover {
+        color: var(--brand);
+      }
+      .btn {
+        display: inline-block;
+        background: var(--sun);
+        color: var(--sun-ink);
+        font-weight: 600;
+        border: 0;
+        border-radius: 8px;
+        padding: 12px 22px;
+        font-size: 1rem;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .btn:hover {
+        filter: brightness(0.95);
+      }
+      .hero {
+        padding: 56px 0 48px;
+      }
+      .hero .wrap {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .hero h1 {
+        font-size: clamp(2.3rem, 5vw, 3.6rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .hero p {
+        color: var(--muted);
+        max-width: 46ch;
+        margin: 18px 0 26px;
+      }
+      .test {
+        background: var(--panel);
+        border: 2px solid var(--ink);
+        border-radius: 14px;
+        padding: 22px;
+        box-shadow: 6px 6px 0 var(--brand);
+      }
+      .test h2 {
+        font-size: 1.25rem;
+        margin-bottom: 6px;
+      }
+      .test small {
+        color: var(--muted);
+      }
+      #target {
+        font-size: 1.15rem;
+        margin: 14px 0 10px;
+        line-height: 1.7;
+      }
+      #target .ok {
+        color: var(--brand);
+      }
+      #target .bad {
+        background: #fca5a5;
+        color: #7f1d1d;
+        border-radius: 3px;
+      }
+      #target .cur {
+        border-bottom: 3px solid var(--sun);
+      }
+      #typed {
+        width: 100%;
+        font: inherit;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      #result {
+        min-height: 1.6em;
+        margin: 10px 0 0;
+        font-weight: 600;
+      }
+      section {
+        padding: 52px 0;
+      }
+      section > .wrap > h2 {
+        font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+        margin-bottom: 8px;
+      }
+      .lead {
+        color: var(--muted);
+        max-width: 56ch;
+        margin: 0 0 28px;
+      }
+      .about {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+      .vision {
+        border-left: 5px solid var(--sun);
+        padding: 4px 0 4px 18px;
+        margin: 0 0 24px;
+        font:
+          700 1.3rem/1.35 "Bricolage Grotesque",
+          sans-serif;
+      }
+      .about h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+      .about ul {
+        margin: 0;
+        padding-left: 1.2em;
+      }
+      .about li {
+        margin-bottom: 8px;
+      }
+      .courses {
+        border-top: 2px solid var(--ink);
+      }
+      .course {
+        display: grid;
+        grid-template-columns: 1.2fr 2fr auto;
+        gap: 20px;
+        align-items: baseline;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .course h3 {
+        font-size: 1.3rem;
+      }
+      .course p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .tag {
+        font-weight: 600;
+        color: var(--brand);
+        white-space: nowrap;
+      }
+      .band {
+        background: var(--brand);
+        color: var(--brand-ink);
+      }
+      .band .lead {
+        color: inherit;
+        opacity: 0.9;
+      }
+      .why {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+      .why h3 {
+        font-size: 1.2rem;
+        margin-bottom: 6px;
+      }
+      .why p {
+        margin: 0;
+      }
+      .sched {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--panel);
+        border: 1px solid var(--line);
+      }
+      .sched th,
+      .sched td {
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      .sched th {
+        font-family: "Bricolage Grotesque", sans-serif;
+      }
+      .scroll {
+        overflow-x: auto;
+      }
+      .reg {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+      .reg form {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 22px;
+        display: grid;
+        gap: 14px;
+      }
+      label {
+        display: grid;
+        gap: 4px;
+        font-weight: 600;
+      }
+      input,
+      select {
+        font: inherit;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 26px 0;
+        color: var(--muted);
+      }
+      footer .wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      @media (max-width: 760px) {
+        .hero .wrap,
+        .reg,
+        .why,
+        .about {
+          grid-template-columns: 1fr;
+        }
+        .course {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <a class="logo" href="#top">LKP Pratiwi<span>Komputer</span></a>
+        <nav aria-label="Menu utama">
+          <a href="#profil">Profil</a><a href="#program">Program</a
+          ><a href="#jadwal">Jadwal</a><a href="#daftar">Daftar</a>
+          <a href="dokumenasi.html">Dokumentasi</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <div class="hero">
+        <div class="wrap">
+          <div>
+            <h1>Belajar komputer dari nol, sampai bisa dipakai bekerja.</h1>
+            <p>
+              Kelas kecil maksimal 10 orang, ada belajar Privat, satu komputer per siswa, dan
+              latihan langsung di setiap pertemuan. Cocok untuk pelajar,
+              mahasiswa, pencari kerja, dan pemilik usaha.
+            </p>
+            <a class="btn" href="#daftar">Daftar kelas</a>
+          </div>
+          <div class="test">
+            <h2>Tes kecepatan mengetik</h2>
+            <small>Ketik kalimat di bawah, hasil muncul setelah selesai.</small>
+            <div id="target" aria-live="off"></div>
+            <input
+              id="typed"
+              type="text"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+              aria-label="Ketik kalimat di sini"
+              placeholder="Mulai mengetik di sini"
+            />
+            <p id="result" role="status"></p>
+          </div>
+        </div>
+      </div>
+
+      <section id="profil">
+        <div class="wrap">
+          <h2>Profil lembaga</h2>
+          <div class="about">
+            <div>
+              <p>
+                Lembaga pelatihan yang berdiri sejak tahun 1991 merupakan kursus
+                komputer pertama di Kalimantan Barat yang memperoleh Akreditasi
+                dari Badan Akreditasi Nasional Pendidikan Non Formal (BAN PNF).
+                Dengan alumni yang telah mencapai lebih dari 8.200 orang,
+                rata-rata lulusan kami telah terserap bekerja maupun
+                berwirausaha di berbagai bidang. LKP Pratiwi Computer mampu
+                mendidik Sumber Daya Manusia yang siap kerja (Ready for use)
+                sehingga menjadi tenaga terampil dan profesional di bidang
+                komputer karena didukung tenaga pengajar yang kompeten dan
+                berpengalaman, dengan metode pembelajaran yang tepat, efektif,
+                dan efisien.
+              </p>
+              <p>
+                Instruktur kami berpengalaman di bidangnya dan mengajar dengan
+                bahasa sehari-hari. Setiap siswa belajar di komputer sendiri dan
+                mengerjakan proyek nyata, bukan sekadar mencatat.
+              </p>
+            </div>
+            <div>
+              <p class="vision">
+                Menjadi tempat belajar komputer terpercaya yang membuat setiap
+                orang percaya diri di dunia digital.
+              </p>
+              <h3>Misi</h3>
+              <ul>
+                <li>
+                  Menyelenggarakan kelas kecil dengan pendampingan langsung dari
+                  instruktur.
+                </li>
+                <li>
+                  Mengutamakan praktik dan proyek nyata di setiap pertemuan.
+                </li>
+                <li>
+                  Menyediakan materi yang selalu diperbarui sesuai kebutuhan
+                  dunia kerja.
+                </li>
+                <li>
+                  Menjangkau semua usia dengan biaya yang terjangkau dan jadwal
+                  fleksibel.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="program">
+        <div class="wrap">
+          <h2>Program kursus</h2>
+          <p class="lead">
+            Pilih sesuai tujuanmu. Setiap program diakhiri proyek nyata dan
+            sertifikat.
+          </p>
+          <div class="courses">
+            <div class="course">
+              <h3>Komputer Dasar &amp; Ms Office</h3>
+              <p>
+                Word, Excel, dan PowerPoint untuk tugas sekolah, kuliah, dan
+                administrasi kantor.
+              </p>
+              <span class="tag">25 jam</span>
+            </div>
+            <div class="course">
+              <h3>Design Grafis</h3>
+              <p>
+                Pelajari seni kombinasi warna, tipografi, dan tata letak
+                menggunakan software profesional untuk membangun citra brand
+                visual yang tepercaya di mata publik.
+              </p>
+              <span class="tag">30 jam</span>
+            </div>
+            <div class="course">
+              <h3>Canva</h3>
+              <p>
+                Membuat poster, logo, dan konten media sosial dengan Photoshop
+                dan Canva.
+              </p>
+              <span class="tag">10 jam</span>
+            </div>
+            <div class="course">
+              <h3>Coding Web Design</h3>
+              <p>
+                HTML, CSS, JavaScript, sampai membuat dan meluncurkan website
+                pertamamu.
+              </p>
+              <span class="tag">20 jam</span>
+            </div>
+            <div class="course">
+              <h3>Editing Video</h3>
+              <p>
+                Membuat berbagai jenis video tergantung pada minat, tujuan, dan
+                platform tempat video tersebut akan dibagikan, mulai dari konten
+                media sosial berdurasi pendek hingga video profesional untuk
+                kebutuhan bisnis.
+              </p>
+              <span class="tag">20 jam</span>
+            </div>
+            <div class="course">
+              <h3>Internet Dasar</h3>
+              <p>
+                Mempelajari cara kerja, cara mengakses, dan cara 
+                menggunakan internet secara aman dan efektif untuk
+                 kebutuhan sehari-hari.
+              </p>
+              <span class="tag">3 jam</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="wrap">
+          <h2>Kenapa belajar di sini</h2>
+          <p class="lead">
+            Kami membatasi kelas supaya setiap siswa bisa ditanya dan dibantu
+            langsung.
+          </p>
+          <div class="why">
+            <div>
+              <h3>Kelas kecil</h3>
+              <p>
+                Maksimal 10 siswa per kelas, jadi instruktur bisa memeriksa
+                layar setiap orang.
+              </p>
+            </div>
+            <div>
+              <h3>Praktik dulu, teori belakangan</h3>
+              <p>
+                Sebagian besar waktu kelas dipakai mengerjakan tugas nyata,
+                bukan mencatat.
+              </p>
+            </div>
+            <div>
+              <h3>Jam belajar fleksibel</h3>
+              <p>
+                Ada kelas pagi, sore, dan akhir pekan. Ketinggalan materi bisa
+                mengulang di sesi lain.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="jadwal">
+        <div class="wrap">
+          <h2>Jadwal kelas</h2>
+          <p class="lead">Contoh jadwal. Hubungi kami untuk jadwal terbaru.</p>
+          <div class="scroll">
+            <table class="sched">
+              <thead>
+                <tr>
+                  <th>Hari</th>
+                  <th>Pagi</th>
+                  <th>Sore</th>
+                  <th>Malam</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Senin</td>
+                  <td>10.00-12.00</td>
+                  <td>14.00-17.00</td>
+                  <td>19.00-21.000</td>
+                </tr>
+                <tr>
+                 <td>Selasa</td>
+                  <td>10.00-12.00</td>
+                  <td>14.00-17.00</td>
+                  <td>19.00-21.000</td>
+                </tr>
+                <tr>
+                  <td>Rabu</td>
+                  <td>10.00-12.00</td>
+                  <td>14.00-17.00</td>
+                  <td>19.00-21.000</td>
+                </tr>
+                <tr>
+                  <td>Kamis</td>
+                  <td>10.00-12.00</td>
+                  <td>14.00-17.00</td>
+                  <td>19.00-21.000</td>
+                </tr>
+                <tr>
+                  <td>Jumat</td>
+                  <td>10.00-12.00</td>
+                  <td>14.00-17.00</td>
+                  <td>19.00-21.000</td>
+                </tr>
+                <tr>
+                  <td>Sabtu</td>
+                  <td>10.00-12.00</td>
+                  <td>14.00-16.00</td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="daftar">
+        <div class="wrap reg">
+          <div>
+            <h2>Daftar sekarang</h2>
+            <p class="lead">
+              Isi data singkat, lalu kami lanjutkan lewat WhatsApp untuk
+              menentukan jadwal dan jadwal kelas percobaan gratis.
+            </p>
+            <p>Jl. Merdeka Blok A3, Kota Singkawang, Provinsi Kalimantan Barat<br />Senin–Sabtu, 08.00–20.00</p> 
+          </div>
+          <form id="regForm">
+            <label
+              >Nama lengkap<input id="nama" required autocomplete="name"
+            /></label>
+            <label
+              >Program yang diminati
+              <select id="prog" required>
+                <option value="">Pilih program</option>
+                <option>Komputer Dasar &amp; Ms Office</option>
+                <option>Excel untuk Pekerjaan</option>
+                <option>Desain Grafis</option>
+                <option>Pemrograman Web</option>
+                <option>Komputer untuk Anak</option>
+              </select></label
+            >
+            <label
+              >Waktu belajar yang cocok
+              <select id="waktu">
+                <option>Pagi</option>
+                <option>Sore</option>
+                <option>Malam</option>
+                <option>Akhir pekan</option>
+              </select></label
+            >
+            <button class="btn" type="submit">Kirim lewat WhatsApp</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 LKP Pratiwi Computer</span
+        ><span>Kursus komputer untuk semua usia</span>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var text =
+          "Belajar komputer itu mudah kalau dimulai dari langkah kecil setiap hari.";
+        var tg = document.getElementById("target"),
+          inp = document.getElementById("typed"),
+          res = document.getElementById("result");
+        var start = 0,
+          done = false;
+        function render(v) {
+          var h = "";
+          for (var i = 0; i < text.length; i++) {
+            var c = text[i] === "<" ? "&lt;" : text[i],
+              cls = "";
+            if (i < v.length) cls = v[i] === text[i] ? "ok" : "bad";
+            else if (i === v.length) cls = "cur";
+            h += '<span class="' + cls + '">' + c + "</span>";
+          }
+          tg.innerHTML = h;
+        }
+        render("");
+        inp.addEventListener("input", function () {
+          var v = inp.value;
+          if (done) {
+            return;
+          }
+          if (!start && v.length) start = Date.now();
+          render(v);
+          if (v.length >= text.length) {
+            done = true;
+            var min = (Date.now() - start) / 60000,
+              ok = 0;
+            for (var i = 0; i < text.length; i++) if (v[i] === text[i]) ok++;
+            var wpm = Math.round(text.length / 5 / min),
+              acc = Math.round((ok / text.length) * 100);
+            res.textContent =
+              "Kecepatan " +
+              wpm +
+              " kata per menit, akurasi " +
+              acc +
+              "%. Ketik lagi untuk mengulang.";
+            inp.blur();
+          }
+        });
+        inp.addEventListener("focus", function () {
+          if (done) {
+            done = false;
+            start = 0;
+            inp.value = "";
+            res.textContent = "";
+            render("");
+          }
+        });
+        document
+          .getElementById("regForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            var m =
+              "Halo Lentera Komputer, saya " +
+              document.getElementById("nama").value +
+              ". Saya ingin ikut kelas " +
+              document.getElementById("prog").value +
+              " (waktu: " +
+              document.getElementById("waktu").value +
+              "). Mohon info jadwal dan kelas percobaan.";
+            window.open(
+              "https://wa.me/6281200000000?text=" + encodeURIComponent(m),
+              "_blank",
+              "noopener",
+            );
+          });
+      })();
+    </script>
+  </body>
+</html>
